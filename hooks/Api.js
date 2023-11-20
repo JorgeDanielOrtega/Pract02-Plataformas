@@ -4,55 +4,6 @@ import { COMPLETE_URL, QUERY_SYMBOL, GET_AUTO, CHANGE_STATE, LIST_CARS_FUNCTION,
 import { getItem, saveToken, saveItem } from "./SessionUtils";
 import { getToken } from "./SessionUtils";
 
-
-const data = [
-    {
-        "external": "1",
-        "descripcion": "Descripcion 1",
-        "subtotal": "100",
-        "iva": "0.2",
-        "total": "12300000",
-        "descuento": "1",
-        "chasis": "Chasis metalico",
-        "placa": "FEE-8523",
-        "foto": "https://st1.uvnimg.com/dims4/default/0102b2f/2147483647/resize/1093x820%3E/quality/75/?url=http%3A%2F%2Fuvn-brightspot.s3.amazonaws.com%2Fd4%2F4a%2F006304a74db4902c0b4d8d8026c8%2Fchevrolet-corvette-c8-stingray-2020-1280-08.jpg",
-        "usuario": "ORTEGA ALBURQUEQUE JORGE DANIEL",
-        "cuenta_external": "8c70dd35-83e1-11ee-8e9c-5254008b9e28",
-        "nombre": "Toyota",
-        "marca_external": "9843b3be-833d-11ee-a1d4-581122836c5f"
-    },
-    {
-        "external": "2",
-        "descripcion": "Descripcion 3",
-        "subtotal": "10",
-        "iva": "0.2",
-        "total": "110",
-        "descuento": "1",
-        "chasis": "Chasis aleacion",
-        "placa": "LAA-1564",
-        "foto": "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_d71cdaceff82463c893d1d117fc2802d.jpg",
-        "usuario": "ORTEGA ALBURQUEQUE JORGE DANIEL",
-        "cuenta_external": "8c70dd35-83e1-11ee-8e9c-5254008b9e28",
-        "nombre": "Nissan",
-        "marca_external": "9843b6db-833d-11ee-a1d4-581122836c5f"
-    },
-    {
-        "external": "3",
-        "descripcion": "Descripcion 3",
-        "subtotal": "5",
-        "iva": "0.1",
-        "total": "100000",
-        "descuento": "60",
-        "chasis": "Chasis alumino",
-        "placa": "IOO-8523",
-        "foto": "https://static.patiotuerca.com/ghost/ecuador/2023/02/Jetour-X70-Plus.jpg",
-        "usuario": "ORTEGA ALBURQUEQUE JORGE DANIEL",
-        "cuenta_external": "8c70dd35-83e1-11ee-8e9c-5254008b9e28",
-        "nombre": "Toyota",
-        "marca_external": "9843b3be-833d-11ee-a1d4-581122836c5f"
-    }
-]
-
 // Metodo para obtener marcas
 export async function getBrands() {
     const response = await fetch(COMPLETE_URL + QUERY_SYMBOL + 'funcion=' + BRANDS_FUNCTION, { cache: 'no-store' })
@@ -61,22 +12,20 @@ export async function getBrands() {
 
 // Metodo para listar autos existentes
 export async function listCars() {
-    // const jwt = getToken()
-    // const external = getItem('external')
+    const jwt = getToken()
+    const external = getItem('external')
 
     const headers = {
         "Accept": "application/json",
         "Content-type": "application/json",
-        "TOKEN-KEY": "OGM3MGRkMzUtODNlMS0xMWVlLThlOWMtNTI1NDAwOGI5ZTI4LS0xNzAwMjg3NTUxLS0zMDUwMDkzNzc2"
+        "TOKEN-KEY": jwt
     }
 
-    const response = await fetch(COMPLETE_URL + QUERY_SYMBOL + 'funcion=' + LIST_CARS_FUNCTION + '&external=' + "8c70dd35-83e1-11ee-8e9c-5254008b9e28", {
+    const response = await fetch(COMPLETE_URL + QUERY_SYMBOL + 'funcion=' + LIST_CARS_FUNCTION + '&external=' + external, {
         // method: "GET",
         headers: headers,
         cache: 'no-store' // La informacion se carga de forma dinamica, el cache no se guarda
     });
-
-
 
     return await response.json()
 }

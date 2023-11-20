@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <>
       {!isSession() && <Login />}
-      {isSession() && (
+      {isSession() && carsList && (
         <div className="mt-5">
           <div className="col-7 container p-0 mb-4">
             <button

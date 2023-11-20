@@ -39,7 +39,8 @@ export default function Login() {
           message("Error", response.msg, ERROR_MESSAGE);
         } else {
           message("Exito", "Has iniciado sesion correctamente");
-          router.refresh();
+          // router.refresh();
+          window.location.reload();
         }
       });
     }
